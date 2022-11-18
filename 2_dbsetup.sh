@@ -54,7 +54,6 @@ else
 	mysql -uroot -p${rootpasswd} -e "GRANT ALL PRIVILEGES ON ${dbname}.* TO '${username}'@'localhost';"
 	mysql -uroot -p${rootpasswd} -e "FLUSH PRIVILEGES;"
 	echo "You're good now :)"
-	exit
 fi
 
 #Setup prerequisites for wordpress
