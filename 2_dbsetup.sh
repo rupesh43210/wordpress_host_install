@@ -158,6 +158,78 @@ echo "define( 'FS_METHOD', 'direct' );
 
 
 
+nginx80(){
+
+cp /etc/nginx/sites-available/$wordpress /etc/nginx/sites-available/$wordpress.bkp
+systemctl stop nginx
+rm /etc/nginx/sites-available/$wordpress	
+
+cat <<EOF > /etc/nginx/sites-available/"$wordpress"
+server {
+listen 80;
+server_name $wordpress;
+root /var/www/$wordpress/;
+}
+EOF
+
+}
+
+
+nginx443(){
+	
+systemctl stop nginx
+rm /etc/nginx/sites-available/$wordpress
+
+
+cat << EOF > /etc/nginx/sites-available/"$wordpress"
+server {
+    listen 80;
+    listen [::]:80;
+    server_name genius.qbits.in;
+    access_log off;
+    root /var/www/genius.qbits.in;
+    location / {
+        rewrite ^ https://\$host\$request_uri? permanent;
+    }
+}
+
+server {
+    listen 443 ssl;
+    listen [::]:443 ssl;
+    server_name genius.qbits.in;
+    root /var/www/$wordpress;
+    index index.php index.html index.htm index.nginx-debian.html;
+    autoindex off;
+    ssl_certificate /etc/letsencrypt/live/$wordpress/fullchain.pem;
+    ssl_certificate_key /etc/letsencrypt/live/$wordpress/privkey.pem;
+    ssl_protocols TLSv1 TLSv1.1 TLSv1.2;
+    ssl_ciphers HIGH:!aNULL:!MD5;
+
+    location ~ \.php$ {
+         include snippets/fastcgi-php.conf;
+         fastcgi_pass unix:/var/run/php/php-fpm.sock;
+         fastcgi_param SCRIPT_FILENAME \$document_root\$fastcgi_script_name;
+         include fastcgi_params;
+    }
+
+    location / {
+        try_files \$uri \$uri/ /index.php\$is_args\$args;
+    }
+    location = /favicon.ico { log_not_found off; access_log off; }
+    location = /robots.txt { log_not_found off; access_log off; allow all; }
+    location ~* \.(css|gif|ico|jpeg|jpg|js|png)$ {
+        expires max;
+        log_not_found off;
+    }
+}
+
+EOF
+
+}
+
+
+
+
 
 setupssl(){
 
@@ -207,14 +279,8 @@ setupssl(){
 
 														read -r -p "Enter your email: " email
 														
-														#edit ngnx serverblock for auto-certbot-challenge														
-														cat <<EOF > /etc/nginx/sites-available/$wordpress
-														server {
-														listen 80;
-														server_name $wordpress;
-														root /var/www/$wordpress/;
-														}
-EOF
+														#edit ngnx serverblock for auto-certbot-challenge
+														nginx80													
 														nginx -t
 														
 														sudo certbot certonly --webroot --webroot-path /var/www/"$wordpress" -m "$email" -d "$wordpress" --agree-tos -n
