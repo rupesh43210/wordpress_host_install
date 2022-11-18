@@ -205,7 +205,8 @@ setupssl(){
 														sed -i "s|/etc/ssl/private/lemp.key;|/etc/letsencrypt/live/$wordpress/privkey.pem|" /etc/nginx/sites-available/"$wordpress"
 
 														read -r -p "Enter your email: " email
-														cp /etc/nginx/sites-available/$wordpress /etc/nginx/sites-available/$wordpress.bkp
+														mv /etc/nginx/sites-available/$wordpress /etc/nginx/sites-available/$wordpress.bkp
+														
 
 #edit ngnx serverblock for auto-certbot-challenge														
 cat <<EOF >/etc/nginx/sites-available/$wordpress
