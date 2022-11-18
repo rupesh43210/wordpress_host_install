@@ -187,7 +187,7 @@ setupssl(){
 
 													sudo systemctl reload nginx
 													echo "Everything done Please go to your website"
-													exit
+													
 												
 												elif [[ $REPLY == "2" ]]; then
 
