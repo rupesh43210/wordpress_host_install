@@ -167,8 +167,7 @@ setupssl(){
 
 								do
 									echo "You have opted : $REPLY: $ssl_conf"
-									#echo "Selected number: $REPLY"
-									
+																
 											if [[ $REPLY == "1" ]]; then
 
 													read -r -p "rsa length(4096 recommended): " rsa_value
@@ -183,18 +182,20 @@ setupssl(){
 													read -r -p "organizational_unit " organizational_unit
 													read -r -p "common_name(FQND or IP): " common_name
 																				
-														echo "generating and signing certificates"
+													echo "generating and signing certificates"
 													openssl req -x509 -newkey rsa:$rsa_value -nodes -out $public_certificate_path -keyout $private_key_path -days $certificate_duration_in_days -subj "C=$country_code/O=$organization_name/OU=$organizational_unit/CN=$common_name"
 													
+												
 												elif [[ $REPLY == "2" ]]; then
 
 														sudo snap install core; sudo snap refresh core
 														sudo apt remove certbot -y
 														sudo snap install --classic certbot -y
 														sudo ln -s /snap/bin/certbot /usr/bin/certbot
-														read -r -p "common_name(FQND or IP): " common_name
-														sudo certbot --nginx -d $common_name -d www.$common_name
 
+														read -r -p "common_name(FQND or IP): " common_name
+
+														sudo certbot --nginx -d $common_name -d www.$common_name
 														sudo ln -s /etc/letsencrypt/live/$common_name/fullchain.pem /etc/ssl/certs/lemp.pem
 														sudo ln -s /etc/letsencrypt/live/$common_name/privkey.pem   /etc/ssl/private/lemp.key
 
@@ -206,5 +207,7 @@ setupssl(){
 								done
 
 		}
+
+setupssl
 
 echo "Everything done Please go to your website"
