@@ -70,7 +70,7 @@ cat <<EOF >/etc/nginx/sites-available/"$wordpress"
 server {
     listen 80;
     listen [::]:80;
-    server_name "$wordpress";
+    server_name $wordpress;
     access_log off;
     location / {
         rewrite ^ https://\$host\$request_uri? permanent;
@@ -80,8 +80,8 @@ server {
 server {
     listen 443 ssl;
     listen [::]:443 ssl;
-    server_name "$wordpress";
-    root /var/www/"$wordpress";
+    server_name $wordpress;
+    root /var/www/$wordpress;
     index index.php index.html index.htm index.nginx-debian.html;
     autoindex off;
     ssl_certificate /etc/ssl/certs/lemp.pem;
