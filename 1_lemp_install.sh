@@ -17,12 +17,13 @@ sudo systemctl start php8.1-fpm
 sudo systemctl enable php8.1-fpm
 sudo systemctl status php8.1-fpm
 
-sed -i 's/^upload_max_filesize = */upload_max_filesize = 32M' /etc/php/8.1/fpm/php.ini
-sed -i 's/^post_max_size = */post_max_size = 48M' /etc/php/8.1/fpm/php.ini
-sed -i 's/^memory_limit = */memory_limit = 256M' /etc/php/8.1/fpm/php.ini
-sed -i 's/^max_execution_time  =*/max_execution_time = 600' /etc/php/8.1/fpm/php.ini
-sed -i 's/^max_input_vars = */max_input_vars = 3000' /etc/php/8.1/fpm/php.ini
-sed -i 's/^max_input_time = */max_input_time = 1000' /etc/php/8.1/fpm/php.ini
+#sed -i 's|^upload_max_filesize = *;|upload_max_filesize = 32M;|' /etc/php/8.1/fpm/php.ini
+sed -i 's|^upload_max_filesize\s=\s2M|upload_max_filesize = 32M|g' post_max_size = 8M
+sed -i 's|^post_max_size\s=\s8M|post_max_size = 48M|g' /etc/php/8.1/fpm/php.ini
+sed -i 's|^memory_limit = */memory_limit = 256M|g' /etc/php/8.1/fpm/php.ini
+sed -i 's|^max_execution_time\s=\s30|max_execution_time = 600|g' /etc/php/8.1/fpm/php.ini
+sed -i 's|^;max_input_vars\s=\s1000 = *|max_input_vars = 3000|g' /etc/php/8.1/fpm/php.ini
+sed -i 's|^max_input_time\s=\s60|max_input_time = 1000|g' /etc/php/8.1/fpm/php.ini
 
 sudo systemctl restart php8.1-fpm
 
