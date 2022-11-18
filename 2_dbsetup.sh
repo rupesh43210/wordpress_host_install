@@ -205,8 +205,9 @@ setupssl(){
 														sed -i "s|/etc/ssl/private/lemp.key;|/etc/letsencrypt/live/$wordpress/privkey.pem|" /etc/nginx/sites-available/"$wordpress"
 
 														read -r -p "Enter your email: " email
-
 														cp /etc/nginx/sites-available/$wordpress /etc/nginx/sites-available/$wordpress.bkp
+
+#edit ngnx serverblock for auto-certbot-challenge														
 cat <<EOF >/etc/nginx/sites-available/$wordpress
 server {
    listen 80;
@@ -216,8 +217,8 @@ server {
 EOF
 														sudo certbot certonly --webroot --webroot-path /var/www/"$wordpress" -m "$email" -d "$wordpress" --agree-tos -n
 														sudo systemctl reload nginx
-
 														rm /etc/nginx/sites-available/$wordpress
+#rewrite nginx directive														
 cat << EOF > /etc/nginx/sites-available/$wordpress
 server {
     listen 80;
