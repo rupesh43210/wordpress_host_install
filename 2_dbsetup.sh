@@ -215,7 +215,7 @@ setupssl(){
 														server_name $wordpress;
 														root /var/www/$wordpress/;
 														}
-														EOF
+EOF
 														
 														sudo certbot certonly --webroot --webroot-path /var/www/"$wordpress" -m "$email" -d "$wordpress" --agree-tos -n
 														sudo systemctl reload nginx
