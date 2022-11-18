@@ -34,7 +34,7 @@ listen 80;
 
 root /var/www/html;
 
-index index.php;
+index index.php index.nginx-debian.html;
 
 server_name example.com www.example.com;
 
@@ -50,7 +50,6 @@ fastcgi_pass unix:/run/php/php8.1-fpm.sock;
 EOF
 
 nginx -t
-
 sudo systemctl restart nginx php8.1-fpm
 
 echo "LEMP has been insalled successfully"
