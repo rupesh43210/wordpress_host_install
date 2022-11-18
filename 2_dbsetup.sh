@@ -163,7 +163,7 @@ setupssl(){
 
 					echo " Select your ssl-cert configuration"
 									
-									select ssl_conf in Self Signed Cert letsencrypt "exit"
+									select ssl_conf in Self_Signed_Cert letsencrypt "exit"
 
 								do
 									echo "You have opted : $REPLY: $ssl_conf"
@@ -183,7 +183,7 @@ setupssl(){
 													read -r -p "common_name(FQND or IP): " common_name
 																				
 													echo "generating and signing certificates"
-													openssl req -x509 -newkey rsa:$rsa_value -nodes -out $public_certificate_path -keyout $private_key_path -days $certificate_duration_in_days -subj "C=$country_code/O=$organization_name/OU=$organizational_unit/CN=$common_name"
+													openssl req -x509 -newkey rsa:"$rsa_value" -nodes -out $public_certificate_path -keyout $private_key_path -days "$certificate_duration_in_days" -subj "C=$country_code/O=$organization_name/OU=$organizational_unit/CN=$common_name"
 													
 												
 												elif [[ $REPLY == "2" ]]; then
