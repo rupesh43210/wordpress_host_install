@@ -29,3 +29,27 @@ sudo systemctl restart php8.1-fpm
 #configure Nginx virtual Host
 
 cat <<EOF > /etc/nginx/sites-enabled/default
+server {
+listen 80;
+
+root /var/www/html;
+
+index index.php;
+
+server_name example.com www.example.com;
+
+location / {
+try_files $uri $uri/ =404;
+}
+
+location ~ \.php$ {
+include snippets/fastcgi-php.conf;
+fastcgi_pass unix:/run/php/php8.1-fpm.sock;
+}
+EOF
+
+nginx -t
+
+sudo systemctl restart nginx php8.1-fpm
+
+echo "LEMP has been insalled successfully"
