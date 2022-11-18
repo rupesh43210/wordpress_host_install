@@ -230,7 +230,7 @@ server {
 
 EOF
 
-less /etc/nginx/sites-available/"$wordpress"
+#less /etc/nginx/sites-available/"$wordpress"
 sleep 5
 nginx -t
 systemctl start nginx
@@ -285,8 +285,7 @@ setupssl(){
 
 														cp /etc/nginx/sites-available/$wordpress /etc/nginx/sites-available/$wordpress.bkp
 														systemctl stop nginx
-														rm /etc/nginx/sites-available/$wordpress
-
+														
 														read -r -p "common_name(FQND or IP): " common_name
 
 														read -r -p "Enter your email: " email
