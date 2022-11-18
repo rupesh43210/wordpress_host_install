@@ -207,6 +207,7 @@ setupssl(){
 														read -r -p "Enter your email: " email
 
 														sudo certbot certonly --webroot --webroot-path /var/www/ -m "$email" -d www."$wordpress" -d "$wordpress" --agree-tos -n
+														sudo systemctl reload nginx
 
 														#sudo certbot --nginx -d "$common_name" -d www."$common_name"
 														
