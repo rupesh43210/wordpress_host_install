@@ -189,13 +189,14 @@ setupssl(){
 												elif [[ $REPLY == "2" ]]; then
 
 														sudo snap install core; sudo snap refresh core
-														sudo apt remove certbot
-														sudo snap install --classic certbot
+														sudo apt remove certbot -y
+														sudo snap install --classic certbot -y
 														sudo ln -s /snap/bin/certbot /usr/bin/certbot
-														sudo certbot --nginx -d $wordpress -d www.$wordpress
+														read -r -p "common_name(FQND or IP): " common_name
+														sudo certbot --nginx -d $common_name -d www.$common_name
 
-														sudo ln -s /etc/letsencrypt/live/$wordpress/fullchain.pem /etc/ssl/certs/lemp.pem
-														sudo ln -s /etc/letsencrypt/live/$wordpress/privkey.pem   /etc/ssl/private/lemp.key
+														sudo ln -s /etc/letsencrypt/live/$common_name/fullchain.pem /etc/ssl/certs/lemp.pem
+														sudo ln -s /etc/letsencrypt/live/$common_name/privkey.pem   /etc/ssl/private/lemp.key
 
 														else echo "You need to setup certs to access your website"
 															setupssl
