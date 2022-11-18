@@ -263,6 +263,9 @@ server {
 }
 
 EOF
+
+nginx -t
+sudo systemctl reload nginx
 														#sudo certbot --nginx -d "$common_name" -d www."$common_name"
 														
 
