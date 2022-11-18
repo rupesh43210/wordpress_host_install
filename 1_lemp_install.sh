@@ -68,3 +68,19 @@ sudo ./2_dbsetup.sh
 else echo "Setup wordpress as and when required later"
 fi
 
+
+
+
+#generate self signed cert
+
+rsa_value
+public_certificate_path
+private_key_path
+certificate_duration_in_days
+country_code
+organization_name
+organizational_unit
+common_name
+
+
+openssl req -x509 -newkey rsa:<rsa_value> -nodes -out <public certificate path> -keyout <private key path> -days <certificate duration in days> -subj "C=<country code>/O=<organization name>/OU=<organizational unit>/CN=<common name>"

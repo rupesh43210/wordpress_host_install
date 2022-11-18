@@ -145,9 +145,10 @@ sudo chown -R www-data:www-data /var/www/"$wordpress"
 
 
 #setup credentials for database connection
-sed -i 's|^define( 'DB_NAME', 'wordpress' );|define( 'DB_NAME', '"$dbname"' );' /var/www/"$wordpress"/wp-config.php
-sed -i 's|^define( 'DB_USER', 'wp_user' );|define( 'DB_USER', '"$username"' );' /var/www/"$wordpress"/wp-config.php
-sed -i 's|^define( 'DB_PASSWORD', 'password' );|define( 'DB_PASSWORD', '"$userpass"' );' /var/www/"$wordpress"/wp-config.php
+sed -i "s|^define( 'DB_NAME', 'database_name_here' );|define( 'DB_NAME', '$dbname' );|" /var/www/$wordpress/wp-config.php
+sed -i "s|^define( 'DB_USER', 'username_here' );|define( 'DB_USER', '$username' );|" /var/www/$wordpress/wp-config.php
+sed -i "s|^define( 'DB_PASSWORD', 'password_here' );|define( 'DB_PASSWORD', '$userpass' );|" /var/www/$wordpress/wp-config.php
+
 
 
 #Allow Nginx to write files to your WordPress website
