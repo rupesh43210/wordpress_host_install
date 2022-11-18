@@ -199,15 +199,14 @@ setupssl(){
 														sudo snap install --classic certbot
 														sudo ln -s /snap/bin/certbot /usr/bin/certbot
 
-														read -r -p "common_name(FQND or IP): " common_name
-
-														sed -i "s|/etc/ssl/certs/lemp.pem;|/etc/letsencrypt/live/$wordpress/fullchain.pem;|" /etc/nginx/sites-available/"$wordpress"														
-														sed -i "s|/etc/ssl/private/lemp.key;|/etc/letsencrypt/live/$wordpress/privkey.pem|" /etc/nginx/sites-available/"$wordpress"
-
-														read -r -p "Enter your email: " email
 														cp /etc/nginx/sites-available/$wordpress /etc/nginx/sites-available/$wordpress.bkp
+														systemctl stop nginx
 														rm /etc/nginx/sites-available/$wordpress
 
+														read -r -p "common_name(FQND or IP): " common_name
+
+														read -r -p "Enter your email: " email
+														
 														#edit ngnx serverblock for auto-certbot-challenge														
 														cat <<EOF > /etc/nginx/sites-available/$wordpress
 														server {
@@ -216,6 +215,7 @@ setupssl(){
 														root /var/www/$wordpress/;
 														}
 EOF
+														nginx -t
 														
 														sudo certbot certonly --webroot --webroot-path /var/www/"$wordpress" -m "$email" -d "$wordpress" --agree-tos -n
 														sudo systemctl reload nginx
