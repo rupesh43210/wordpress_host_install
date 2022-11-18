@@ -172,7 +172,7 @@ root /var/www/$wordpress/;
 }
 EOF
 
-less /etc/nginx/sites-available/"$wordpress"
+#less /etc/nginx/sites-available/"$wordpress"
 sleep5
 nginx -t
 systemctl start nginx
@@ -231,7 +231,7 @@ server {
 EOF
 
 less /etc/nginx/sites-available/"$wordpress"
-sleep5
+sleep 5
 nginx -t
 systemctl start nginx
 
