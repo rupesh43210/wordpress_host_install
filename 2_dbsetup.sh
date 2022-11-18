@@ -296,6 +296,8 @@ setupssl(){
 														
 														#rewrite nginx directive
 														nginx443
+
+														echo "Everything done Please go to your website"
 																										
 
 												elif [[ $REPLY == "3" ]]; then
