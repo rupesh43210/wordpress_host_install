@@ -233,6 +233,7 @@ EOF
 less /etc/nginx/sites-available/"$wordpress"
 sleep5
 nginx -t
+systemctl start nginx
 
 }
 
