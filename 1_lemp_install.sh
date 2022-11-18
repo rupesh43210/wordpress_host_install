@@ -3,7 +3,7 @@
 apt update
 
 #setup nginx web-server
-sudo apt install nginx
+sudo apt install nginx -y
 sudo systemctl status nginx
 #setup database server and client
 sudo apt install mariadb-server mariadb-client -y
