@@ -51,6 +51,10 @@ fastcgi_pass unix:/run/php/php8.1-fpm.sock;
 }
 EOF
 
+
+
+
+
 nginx -t
 sudo systemctl restart nginx php8.1-fpm
 
@@ -58,7 +62,7 @@ echo "LEMP has been insalled successfully"
 
 read -r -p "Do you want to setup wordpress now: [y/N]?" permission
 
-if [[ $permission == Y || $permission == y]]; then
+if [[ "$permission" == Y || "$permission" == y ]]; then
 chmod +x dbsetup
 ./dbsetup.sh
 else echo "Setup wordpress as and when required later"
