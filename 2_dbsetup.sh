@@ -209,7 +209,7 @@ setupssl(){
 														rm /etc/nginx/sites-available/$wordpress
 
 														#edit ngnx serverblock for auto-certbot-challenge														
-														cat <<EOF >/etc/nginx/sites-available/$wordpress
+														cat <<EOF > /etc/nginx/sites-available/$wordpress
 														server {
 														listen 80;
 														server_name $wordpress;
