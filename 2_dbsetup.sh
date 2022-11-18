@@ -161,49 +161,49 @@ echo "define( 'FS_METHOD', 'direct' );
 
 setupssl(){
 
-echo " Select your ssl-cert configuration"
-                 
-                select ssl_conf in Self Signed Cert letsencrypt "exit"
+					echo " Select your ssl-cert configuration"
+									
+									select ssl_conf in Self Signed Cert letsencrypt "exit"
 
-            do
-                echo "You have opted : $REPLY: $ssl_conf"
-                #echo "Selected number: $REPLY"
-                
-                         if [[ $REPLY == "1" ]]; then
+								do
+									echo "You have opted : $REPLY: $ssl_conf"
+									#echo "Selected number: $REPLY"
+									
+											if [[ $REPLY == "1" ]]; then
 
-								read -r -p "rsa length(4096 recommended): " rsa_value
-								#read -r -p "public_certificate_path: " public_certificate_path
-								public_certificate_path=/etc/ssl/certs/lemp.pem
-								#read -r -p "private_key_path: " private_key_path
-								private_key_path=/etc/ssl/private/lemp.key
+													read -r -p "rsa length(4096 recommended): " rsa_value
+													#read -r -p "public_certificate_path: " public_certificate_path
+													public_certificate_path=/etc/ssl/certs/lemp.pem
+													#read -r -p "private_key_path: " private_key_path
+													private_key_path=/etc/ssl/private/lemp.key
 
-								read -r -p "certificate_duration_in_days: " certificate_duration_in_days
-								read -r -p "country_code: " country_code
-								read -r -p "organization_name: " organization_name
-								read -r -p "organizational_unit " organizational_unit
-								read -r -p "common_name(FQND or IP): " common_name
-															
-									echo "generating and signing certificates"
-								openssl req -x509 -newkey rsa:$rsa_value -nodes -out $public_certificate_path -keyout $private_key_path -days $certificate_duration_in_days -subj "C=$country_code/O=$organization_name/OU=$organizational_unit/CN=$common_name"
-								
-							elif [[ $REPLY == "2" ]]; then
+													read -r -p "certificate_duration_in_days: " certificate_duration_in_days
+													read -r -p "country_code: " country_code
+													read -r -p "organization_name: " organization_name
+													read -r -p "organizational_unit " organizational_unit
+													read -r -p "common_name(FQND or IP): " common_name
+																				
+														echo "generating and signing certificates"
+													openssl req -x509 -newkey rsa:$rsa_value -nodes -out $public_certificate_path -keyout $private_key_path -days $certificate_duration_in_days -subj "C=$country_code/O=$organization_name/OU=$organizational_unit/CN=$common_name"
+													
+												elif [[ $REPLY == "2" ]]; then
 
-									sudo snap install core; sudo snap refresh core
-									sudo apt remove certbot
-									sudo snap install --classic certbot
-									sudo ln -s /snap/bin/certbot /usr/bin/certbot
-									sudo certbot --nginx -d $wordpress -d www.$wordpress
+														sudo snap install core; sudo snap refresh core
+														sudo apt remove certbot
+														sudo snap install --classic certbot
+														sudo ln -s /snap/bin/certbot /usr/bin/certbot
+														sudo certbot --nginx -d $wordpress -d www.$wordpress
 
-									sudo ln -s /etc/letsencrypt/live/$wordpress/fullchain.pem /etc/ssl/certs/lemp.pem
-									sudo ln -s /etc/letsencrypt/live/$wordpress/privkey.pem   /etc/ssl/private/lemp.key
+														sudo ln -s /etc/letsencrypt/live/$wordpress/fullchain.pem /etc/ssl/certs/lemp.pem
+														sudo ln -s /etc/letsencrypt/live/$wordpress/privkey.pem   /etc/ssl/private/lemp.key
 
-									else echo "You need to setup certs to access your website"
-										setupssl
+														else echo "You need to setup certs to access your website"
+															setupssl
 
 
-                        	fi
-			done
+												fi
+								done
 
-}
+		}
 
 echo "Everything done Please go to your website"
