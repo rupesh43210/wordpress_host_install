@@ -203,6 +203,7 @@ setupssl(){
 														sudo ln -s /etc/letsencrypt/live/"$common_name"/privkey.pem   /etc/ssl/private/lemp.key
 
 												elif [[ $REPLY == "3" ]]; then
+														echo "setupSSL to enable access to website"
 														exit		
 
 												else echo "You need to setup certs to access your website"
