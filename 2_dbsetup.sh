@@ -181,6 +181,9 @@ setupssl(){
 													read -r -p "organization_name: " organization_name
 													read -r -p "organizational_unit " organizational_unit
 													read -r -p "common_name(FQND or IP): " common_name
+
+													sed -i "s|^/etc/letsencrypt/live/$wordpress/fullchain.pem;|/etc/ssl/certs/lemp.pem;|" /etc/nginx/sites-available/"$wordpress"														
+													sed -i "s|^/etc/letsencrypt/live/$wordpress/privkey.pem|/etc/ssl/private/lemp.key;|" /etc/nginx/sites-available/"$wordpress"
 																				
 													echo "generating and signing certificates"
 													openssl req -x509 -newkey rsa:"$rsa_value" -nodes -out $public_certificate_path -keyout $private_key_path -days "$certificate_duration_in_days" -subj "/C=$country_code/O=$organization_name/OU=$organizational_unit/CN=$common_name"
@@ -198,9 +201,15 @@ setupssl(){
 
 														read -r -p "common_name(FQND or IP): " common_name
 
-														sudo certbot --nginx -d "$common_name" -d www."$common_name"
-														sudo ln -s /etc/letsencrypt/live/"$common_name"/fullchain.pem /etc/ssl/certs/lemp.pem
-														sudo ln -s /etc/letsencrypt/live/"$common_name"/privkey.pem   /etc/ssl/private/lemp.key
+														sed -i "s|^/etc/ssl/certs/lemp.pem;|/etc/letsencrypt/live/$wordpress/fullchain.pem;|" /etc/nginx/sites-available/"$wordpress"														
+														sed -i "s|^/etc/ssl/private/lemp.key;|/etc/letsencrypt/live/$wordpress/privkey.pem|" /etc/nginx/sites-available/"$wordpress"
+
+														read -r -p "Enter your email: " email
+
+														sudo certbot certonly --webroot --webroot-path /var/www/ -m "$email" -d www."$wordpress" -d "$wordpress" --agree-tos -n
+
+														#sudo certbot --nginx -d "$common_name" -d www."$common_name"
+														
 
 												elif [[ $REPLY == "3" ]]; then
 														echo "setupSSL to enable access to website"
