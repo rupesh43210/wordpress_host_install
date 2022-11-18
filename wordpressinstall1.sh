@@ -25,3 +25,7 @@ sed -i 's/^max_input_vars = */max_input_vars = 3000' /etc/php/8.1/fpm/php.ini
 sed -i 's/^max_input_time = */max_input_time = 1000' /etc/php/8.1/fpm/php.ini
 
 sudo systemctl restart php8.1-fpm
+
+#configure Nginx virtual Host
+
+cat <<EOF > /etc/nginx/sites-enabled/default
