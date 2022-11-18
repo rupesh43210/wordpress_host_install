@@ -206,8 +206,21 @@ setupssl(){
 
 														read -r -p "Enter your email: " email
 
+														cp /etc/nginx/sites-available/$wordpress /etc/nginx/sites-available/$wordpress.bkp
+														cat <<EOF >/etc/nginx/sites-available/$wordpress
+														
+server {
+    listen 80;
+    server_name $wordpress;
+    root /var/www/$wordpress/;
+}
+
+EOF
 														sudo certbot certonly --webroot --webroot-path /var/www/"$wordpress" -m "$email" -d "$wordpress" --agree-tos -n
 														sudo systemctl reload nginx
+
+														rm /etc/nginx/sites-available/$wordpress
+														cp /etc/nginx/sites-available/$wordpress.bkp /etc/nginx/sites-available/$wordpress
 
 														#sudo certbot --nginx -d "$common_name" -d www."$common_name"
 														
