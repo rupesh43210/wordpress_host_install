@@ -70,7 +70,7 @@ fi
 
 
 
-
+<<comment
 #generate self signed cert
 
 rsa_value
@@ -82,5 +82,7 @@ organization_name
 organizational_unit
 common_name
 
+
+comment
 
 openssl req -x509 -newkey rsa:<rsa_value> -nodes -out <public certificate path> -keyout <private key path> -days <certificate duration in days> -subj "C=<country code>/O=<organization name>/OU=<organizational unit>/CN=<common name>"
