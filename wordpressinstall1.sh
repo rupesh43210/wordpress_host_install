@@ -39,13 +39,15 @@ index index.php index.nginx-debian.html;
 server_name example.com www.example.com;
 
 location / {
-try_files $uri $uri/ =404;
+try_files \$uri \$uri/ =404;
 }
 
 location ~ \.php$ {
 include snippets/fastcgi-php.conf;
 fastcgi_pass unix:/run/php/php8.1-fpm.sock;
 }
+
+
 }
 EOF
 
