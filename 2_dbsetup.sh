@@ -193,7 +193,7 @@ setupssl(){
 
 														sudo snap install core; sudo snap refresh core
 														sudo apt remove certbot -y
-														sudo snap install --classic certbot -y
+														sudo snap install --classic certbot
 														sudo ln -s /snap/bin/certbot /usr/bin/certbot
 
 														read -r -p "common_name(FQND or IP): " common_name
