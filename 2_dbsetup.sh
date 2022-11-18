@@ -243,7 +243,7 @@ setupssl(){
 
 					echo " Select your ssl-cert configuration"
 									
-									select ssl_conf in Self_Signed_Cert letsencrypt "exit"
+									select ssl_conf in Self_Signed_Cert certbot_letsencrypt "exit"
 
 								do
 									echo "You have opted : $REPLY: $ssl_conf"
