@@ -228,7 +228,7 @@ server {
     access_log off;
     root /var/www/genius.qbits.in;
     location / {
-        rewrite ^ https://$host$request_uri? permanent;
+        rewrite ^ https://\$host\$request_uri? permanent;
     }
 }
 
@@ -247,12 +247,12 @@ server {
     location ~ \.php$ {
          include snippets/fastcgi-php.conf;
          fastcgi_pass unix:/var/run/php/php-fpm.sock;
-         fastcgi_param SCRIPT_FILENAME $document_root$fastcgi_script_name;
+         fastcgi_param SCRIPT_FILENAME \$document_root\$fastcgi_script_name;
          include fastcgi_params;
     }
 
     location / {
-        try_files $uri $uri/ /index.php$is_args$args;
+        try_files \$uri \$uri/ /index.php\$is_args\$args;
     }
     location = /favicon.ico { log_not_found off; access_log off; }
     location = /robots.txt { log_not_found off; access_log off; allow all; }
