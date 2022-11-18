@@ -63,8 +63,8 @@ echo "LEMP has been insalled successfully"
 read -r -p "Do you want to setup wordpress now: [y/N]?" permission
 
 if [[ "$permission" == Y || "$permission" == y ]]; then
-chmod +x 2_dbsetup
-./2_dbsetup.sh
+sudo chmod +x 2_dbsetup
+sudo ./2_dbsetup.sh
 else echo "Setup wordpress as and when required later"
 fi
 
