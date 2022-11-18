@@ -235,6 +235,8 @@ sleep5
 nginx -t
 systemctl start nginx
 
+sleep 15
+
 }
 
 
