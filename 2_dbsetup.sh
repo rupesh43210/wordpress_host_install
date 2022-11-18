@@ -200,6 +200,9 @@ setupssl(){
 														sudo ln -s /etc/letsencrypt/live/"$common_name"/fullchain.pem /etc/ssl/certs/lemp.pem
 														sudo ln -s /etc/letsencrypt/live/"$common_name"/privkey.pem   /etc/ssl/private/lemp.key
 
+												elif [[ $REPLY=3]]; then
+														exit		
+
 														else echo "You need to setup certs to access your website"
 															setupssl
 
@@ -210,5 +213,7 @@ setupssl(){
 		}
 
 setupssl
+
+sudo systemctl reload nginx
 
 echo "Everything done Please go to your website"
