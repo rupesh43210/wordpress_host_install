@@ -24,7 +24,6 @@ if [ -f /root/.my.cnf ]; then
 	mysql -e "GRANT ALL PRIVILEGES ON ${dbname}.* TO '${username}'@'localhost';"
 	mysql -e "FLUSH PRIVILEGES;"
 	echo "You're good now :)"
-	exit
 	
 # If /root/.my.cnf doesn't exist then it'll ask for root password	
 else
