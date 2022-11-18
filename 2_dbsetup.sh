@@ -284,8 +284,7 @@ setupssl(){
 														sudo ln -s /snap/bin/certbot /usr/bin/certbot
 
 														cp /etc/nginx/sites-available/$wordpress /etc/nginx/sites-available/$wordpress.bkp
-														systemctl stop nginx
-														
+																												
 														read -r -p "common_name(FQND or IP): " common_name
 
 														read -r -p "Enter your email: " email
