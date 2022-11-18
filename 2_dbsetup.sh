@@ -145,9 +145,9 @@ sudo chown -R www-data:www-data /var/www/"$wordpress"
 
 
 #setup credentials for database connection
-sed -i "s|^define( 'DB_NAME', 'database_name_here' );|define( 'DB_NAME', '$dbname' );|" /var/www/$wordpress/wp-config.php
-sed -i "s|^define( 'DB_USER', 'username_here' );|define( 'DB_USER', '$username' );|" /var/www/$wordpress/wp-config.php
-sed -i "s|^define( 'DB_PASSWORD', 'password_here' );|define( 'DB_PASSWORD', '$userpass' );|" /var/www/$wordpress/wp-config.php
+sed -i "s|^define( 'DB_NAME', 'database_name_here' );|define( 'DB_NAME', '$dbname' );|" /var/www/"$wordpress"/wp-config.php
+sed -i "s|^define( 'DB_USER', 'username_here' );|define( 'DB_USER', '$username' );|" /var/www/"$wordpress"/wp-config.php
+sed -i "s|^define( 'DB_PASSWORD', 'password_here' );|define( 'DB_PASSWORD', '$userpass' );|" /var/www/"$wordpress"/wp-config.php
 
 
 
@@ -196,9 +196,9 @@ setupssl(){
 
 														read -r -p "common_name(FQND or IP): " common_name
 
-														sudo certbot --nginx -d $common_name -d www.$common_name
-														sudo ln -s /etc/letsencrypt/live/$common_name/fullchain.pem /etc/ssl/certs/lemp.pem
-														sudo ln -s /etc/letsencrypt/live/$common_name/privkey.pem   /etc/ssl/private/lemp.key
+														sudo certbot --nginx -d "$common_name" -d www."$common_name"
+														sudo ln -s /etc/letsencrypt/live/"$common_name"/fullchain.pem /etc/ssl/certs/lemp.pem
+														sudo ln -s /etc/letsencrypt/live/"$common_name"/privkey.pem   /etc/ssl/private/lemp.key
 
 														else echo "You need to setup certs to access your website"
 															setupssl
